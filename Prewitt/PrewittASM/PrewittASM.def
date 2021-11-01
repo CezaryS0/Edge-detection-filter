@@ -1,0 +1,2 @@
+LIBRARY PrewittASM
+EXPORTS MyProc1
