@@ -32,10 +32,11 @@ namespace Prewitt
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.SelectPictureButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PathTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.CPPradioButton = new System.Windows.Forms.RadioButton();
             this.ASMradioButton = new System.Windows.Forms.RadioButton();
             this.ThreadsTrackBar = new System.Windows.Forms.TrackBar();
@@ -58,6 +59,7 @@ namespace Prewitt
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ThreadsTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -88,7 +90,7 @@ namespace Prewitt
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.SelectPictureButton);
-            this.splitContainer2.Panel1.Controls.Add(this.textBox1);
+            this.splitContainer2.Panel1.Controls.Add(this.PathTextBox);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             // 
             // splitContainer2.Panel2
@@ -110,13 +112,14 @@ namespace Prewitt
             this.SelectPictureButton.UseVisualStyleBackColor = true;
             this.SelectPictureButton.Click += new System.EventHandler(this.SelectPictureButton_Click);
             // 
-            // textBox1
+            // PathTextBox
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Location = new System.Drawing.Point(0, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(556, 27);
-            this.textBox1.TabIndex = 1;
+            this.PathTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PathTextBox.Location = new System.Drawing.Point(0, 20);
+            this.PathTextBox.Name = "PathTextBox";
+            this.PathTextBox.ReadOnly = true;
+            this.PathTextBox.Size = new System.Drawing.Size(556, 27);
+            this.PathTextBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -156,8 +159,7 @@ namespace Prewitt
             // 
             // splitContainer4.Panel1
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.CPPradioButton);
-            this.splitContainer4.Panel1.Controls.Add(this.ASMradioButton);
+            this.splitContainer4.Panel1.Controls.Add(this.panel2);
             this.splitContainer4.Panel1.Controls.Add(this.ThreadsTrackBar);
             // 
             // splitContainer4.Panel2
@@ -168,10 +170,21 @@ namespace Prewitt
             this.splitContainer4.SplitterDistance = 478;
             this.splitContainer4.TabIndex = 0;
             // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.CPPradioButton);
+            this.panel2.Controls.Add(this.ASMradioButton);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 56);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(478, 47);
+            this.panel2.TabIndex = 3;
+            // 
             // CPPradioButton
             // 
             this.CPPradioButton.AutoSize = true;
-            this.CPPradioButton.Location = new System.Drawing.Point(216, 62);
+            this.CPPradioButton.Location = new System.Drawing.Point(334, 4);
             this.CPPradioButton.Name = "CPPradioButton";
             this.CPPradioButton.Size = new System.Drawing.Size(59, 24);
             this.CPPradioButton.TabIndex = 2;
@@ -182,7 +195,7 @@ namespace Prewitt
             // ASMradioButton
             // 
             this.ASMradioButton.AutoSize = true;
-            this.ASMradioButton.Location = new System.Drawing.Point(35, 62);
+            this.ASMradioButton.Location = new System.Drawing.Point(68, 4);
             this.ASMradioButton.Name = "ASMradioButton";
             this.ASMradioButton.Size = new System.Drawing.Size(61, 24);
             this.ASMradioButton.TabIndex = 1;
@@ -206,6 +219,7 @@ namespace Prewitt
             // 
             // label3
             // 
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(0, 25);
             this.label3.Name = "label3";
@@ -297,6 +311,8 @@ namespace Prewitt
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ThreadsTrackBar)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -315,7 +331,7 @@ namespace Prewitt
         private System.Windows.Forms.PictureBox InputImage;
         private System.Windows.Forms.PictureBox OutputImage;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox PathTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button SelectPictureButton;
         private System.Windows.Forms.SplitContainer splitContainer3;
@@ -326,6 +342,7 @@ namespace Prewitt
         private System.Windows.Forms.Button PutOnTheFilterButton;
         private System.Windows.Forms.RadioButton CPPradioButton;
         private System.Windows.Forms.RadioButton ASMradioButton;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

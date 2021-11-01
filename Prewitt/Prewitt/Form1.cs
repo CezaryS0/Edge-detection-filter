@@ -58,6 +58,7 @@ namespace Prewitt
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     model = new Model(openFileDialog.FileName);
+                    PathTextBox.Text = openFileDialog.FileName;
                     InputImage.Image = model.ReturnLoadedImage();
                 }
             }
