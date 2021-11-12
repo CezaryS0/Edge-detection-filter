@@ -16,6 +16,7 @@ namespace Prewitt
         Model model;
         Thread MainThread;
         int NThreads=8;
+        Filter filter1;
         public Form1()
         {
             InitializeComponent();
@@ -73,6 +74,9 @@ namespace Prewitt
                 MainThread.IsBackground = true;
                 MainThread.Start();
             }
+            filter1 = new Filter(model);
+            Bitmap img = model.ReturnLoadedImage();
+            OutputImage.Image = filter1.PutOnTheFilterCSharp(img);
         }
 
         private void ThreadsTrackBar_ValueChanged(object sender, EventArgs e)

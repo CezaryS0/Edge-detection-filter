@@ -21,5 +21,9 @@ namespace Prewitt
         {
             return null;
         }
+        public Bitmap PutOnTheFilterCSharp(Bitmap bitmap)
+        {
+            return CSharpPrewitt.PrewittFilter(bitmap);
+        }
     }
 }
