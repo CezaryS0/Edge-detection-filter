@@ -107,19 +107,13 @@ namespace Prewitt
             int byteOffset = 0;
 
 
-            for (int offsetY = filterOffset; offsetY <
-                sourceBitmap.Height - filterOffset; offsetY++)
+            for (int offsetY = filterOffset; offsetY <sourceBitmap.Height - filterOffset; offsetY++)
             {
-                for (int offsetX = filterOffset; offsetX <
-                    sourceBitmap.Width - filterOffset; offsetX++)
+                for (int offsetX = filterOffset; offsetX <sourceBitmap.Width - filterOffset; offsetX++)
                 {
                     blueX = greenX = redX = 0;
                     blueY = greenY = redY = 0;
-
-
                     blueTotal = greenTotal = redTotal = 0.0;
-
-
                     byteOffset = offsetY *
                                  sourceData.Stride +
                                  offsetX * 4;
@@ -186,22 +180,14 @@ namespace Prewitt
                     }
 
 
-                    blueTotal = Math.Sqrt((blueX * blueX) +
-                                          (blueY * blueY));
-
-
-                    greenTotal = Math.Sqrt((greenX * greenX) +
-                                           (greenY * greenY));
-
-
-                    redTotal = Math.Sqrt((redX * redX) +
-                                         (redY * redY));
-
+                    blueTotal = Math.Sqrt((blueX * blueX) +(blueY * blueY));
+                    greenTotal = Math.Sqrt((greenX * greenX) +(greenY * greenY));
+                    redTotal = Math.Sqrt((redX * redX) +(redY * redY));
 
                     if (blueTotal > 255)
-                    { blueTotal = 255; }
+                        blueTotal = 255;
                     else if (blueTotal < 0)
-                    { blueTotal = 0; }
+                        blueTotal = 0;
 
 
                     if (greenTotal > 255)
