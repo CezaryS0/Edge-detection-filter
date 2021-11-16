@@ -37,10 +37,10 @@ namespace Prewitt
     }
     public static class CSharpPrewitt
     {
+        private static bool done;
+        static object Lock = new object();
         private static void ApplyGrayScale(ref byte[]pixelBuffer)
         {
-            
-
             float rgb = 0;
             for (int k = 0; k < pixelBuffer.Length; k += 4)
             {
@@ -119,6 +119,10 @@ namespace Prewitt
                     resultBuffer[byteOffset + 3] = 255;
                 }
             }
+            lock (Lock)
+            {
+                done = true;
+            }
         }
         public static Bitmap ConvolutionFilter(Bitmap sourceBitmap,int NThreads,double[,] xFilterMatrix,double[,] yFilterMatrix,bool grayscale = false)
         {
@@ -135,12 +139,13 @@ namespace Prewitt
             {
                 ApplyGrayScale(ref pixelBuffer);
             }
-            int minIOC;
-            //ThreadPool.GetMinThreads(out _, out minIOC);
-            //ThreadPool.SetMinThreads(NThreads, minIOC);
-            //ThreadPool.QueueUserWorkItem(state => MakeCalculations(ref sourceBitmap, ref sourceData, ref pixelBuffer, ref resultBuffer));
-           MakeCalculations(ref sourceBitmap, ref sourceData, ref pixelBuffer, ref resultBuffer);
-            
+            int minIOC,maxIOC;
+            ThreadPool.GetMinThreads(out _, out minIOC);
+            ThreadPool.SetMinThreads(NThreads, minIOC);
+            ThreadPool.GetMaxThreads(out _, out maxIOC);
+            ThreadPool.SetMaxThreads(NThreads, maxIOC);
+            ThreadPool.QueueUserWorkItem(state => MakeCalculations(ref sourceBitmap, ref sourceData, ref pixelBuffer, ref resultBuffer));
+            while (done==false);
             Bitmap resultBitmap = new Bitmap(sourceBitmap.Width,sourceBitmap.Height);
 
             BitmapData resultData =resultBitmap.LockBits(new Rectangle(0, 0,resultBitmap.Width, resultBitmap.Height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
@@ -151,6 +156,7 @@ namespace Prewitt
         }
         public static Bitmap PrewittFilter(Bitmap sourceBitmap,Model m, bool grayscale = true)
         {
+            done= false;
             Bitmap resultBitmap = ConvolutionFilter(sourceBitmap,m.GetNnumberOfThreads(),Matrix.Prewitt3x3Horizontal,Matrix.Prewitt3x3Vertical, grayscale);
 
 

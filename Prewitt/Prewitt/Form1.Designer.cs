@@ -36,19 +36,19 @@ namespace Prewitt
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.ElapsedTimeLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.CPPradioButton = new System.Windows.Forms.RadioButton();
             this.ASMradioButton = new System.Windows.Forms.RadioButton();
             this.ThreadsTrackBar = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
+            this.NThreadsLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.PutOnTheFilterButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.InputImage = new System.Windows.Forms.PictureBox();
             this.OutputImage = new System.Windows.Forms.PictureBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ElapsedTimeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -62,6 +62,7 @@ namespace Prewitt
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ThreadsTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -70,17 +71,16 @@ namespace Prewitt
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputImage)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.splitContainer2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 635);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Location = new System.Drawing.Point(0, 497);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1459, 191);
+            this.panel1.Size = new System.Drawing.Size(1104, 153);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -90,7 +90,7 @@ namespace Prewitt
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -102,19 +102,18 @@ namespace Prewitt
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1459, 191);
-            this.splitContainer2.SplitterDistance = 695;
-            this.splitContainer2.SplitterWidth = 5;
+            this.splitContainer2.Size = new System.Drawing.Size(1104, 153);
+            this.splitContainer2.SplitterDistance = 525;
             this.splitContainer2.TabIndex = 0;
             // 
             // SelectPictureButton
             // 
             this.SelectPictureButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SelectPictureButton.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SelectPictureButton.Location = new System.Drawing.Point(0, 56);
-            this.SelectPictureButton.Margin = new System.Windows.Forms.Padding(4);
+            this.SelectPictureButton.Location = new System.Drawing.Point(0, 38);
+            this.SelectPictureButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SelectPictureButton.Name = "SelectPictureButton";
-            this.SelectPictureButton.Size = new System.Drawing.Size(695, 135);
+            this.SelectPictureButton.Size = new System.Drawing.Size(525, 115);
             this.SelectPictureButton.TabIndex = 2;
             this.SelectPictureButton.Text = "Select Picture";
             this.SelectPictureButton.UseVisualStyleBackColor = true;
@@ -123,20 +122,19 @@ namespace Prewitt
             // PathTextBox
             // 
             this.PathTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PathTextBox.Location = new System.Drawing.Point(0, 25);
-            this.PathTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PathTextBox.Location = new System.Drawing.Point(0, 15);
+            this.PathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PathTextBox.Name = "PathTextBox";
             this.PathTextBox.ReadOnly = true;
-            this.PathTextBox.Size = new System.Drawing.Size(695, 31);
+            this.PathTextBox.Size = new System.Drawing.Size(525, 23);
             this.PathTextBox.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(695, 25);
+            this.label1.Size = new System.Drawing.Size(525, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Selected Path";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -147,7 +145,7 @@ namespace Prewitt
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -158,9 +156,9 @@ namespace Prewitt
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.PutOnTheFilterButton);
-            this.splitContainer3.Size = new System.Drawing.Size(759, 191);
-            this.splitContainer3.SplitterDistance = 128;
-            this.splitContainer3.SplitterWidth = 5;
+            this.splitContainer3.Size = new System.Drawing.Size(575, 153);
+            this.splitContainer3.SplitterDistance = 84;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
             // splitContainer4
@@ -169,7 +167,7 @@ namespace Prewitt
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.IsSplitterFixed = true;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer4.Name = "splitContainer4";
             // 
             // splitContainer4.Panel1
@@ -180,12 +178,43 @@ namespace Prewitt
             // 
             // splitContainer4.Panel2
             // 
-            this.splitContainer4.Panel2.Controls.Add(this.label3);
+            this.splitContainer4.Panel2.Controls.Add(this.NThreadsLabel);
             this.splitContainer4.Panel2.Controls.Add(this.label2);
-            this.splitContainer4.Size = new System.Drawing.Size(759, 128);
-            this.splitContainer4.SplitterDistance = 597;
-            this.splitContainer4.SplitterWidth = 5;
+            this.splitContainer4.Size = new System.Drawing.Size(575, 84);
+            this.splitContainer4.SplitterDistance = 452;
             this.splitContainer4.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.ElapsedTimeLabel);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(190, 45);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(262, 39);
+            this.panel3.TabIndex = 4;
+            // 
+            // ElapsedTimeLabel
+            // 
+            this.ElapsedTimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ElapsedTimeLabel.Location = new System.Drawing.Point(0, 15);
+            this.ElapsedTimeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ElapsedTimeLabel.Name = "ElapsedTimeLabel";
+            this.ElapsedTimeLabel.Size = new System.Drawing.Size(258, 20);
+            this.ElapsedTimeLabel.TabIndex = 1;
+            this.ElapsedTimeLabel.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(258, 15);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Elapsed Time";
             // 
             // panel2
             // 
@@ -193,19 +222,19 @@ namespace Prewitt
             this.panel2.Controls.Add(this.CPPradioButton);
             this.panel2.Controls.Add(this.ASMradioButton);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 69);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Location = new System.Drawing.Point(0, 45);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(269, 59);
+            this.panel2.Size = new System.Drawing.Size(190, 39);
             this.panel2.TabIndex = 3;
             // 
             // CPPradioButton
             // 
             this.CPPradioButton.AutoSize = true;
-            this.CPPradioButton.Location = new System.Drawing.Point(133, 6);
-            this.CPPradioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.CPPradioButton.Location = new System.Drawing.Point(93, 4);
+            this.CPPradioButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPPradioButton.Name = "CPPradioButton";
-            this.CPPradioButton.Size = new System.Drawing.Size(59, 29);
+            this.CPPradioButton.Size = new System.Drawing.Size(40, 19);
             this.CPPradioButton.TabIndex = 2;
             this.CPPradioButton.TabStop = true;
             this.CPPradioButton.Text = "C#";
@@ -214,10 +243,10 @@ namespace Prewitt
             // ASMradioButton
             // 
             this.ASMradioButton.AutoSize = true;
-            this.ASMradioButton.Location = new System.Drawing.Point(41, 5);
-            this.ASMradioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ASMradioButton.Location = new System.Drawing.Point(29, 3);
+            this.ASMradioButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ASMradioButton.Name = "ASMradioButton";
-            this.ASMradioButton.Size = new System.Drawing.Size(75, 29);
+            this.ASMradioButton.Size = new System.Drawing.Size(50, 19);
             this.ASMradioButton.TabIndex = 1;
             this.ASMradioButton.TabStop = true;
             this.ASMradioButton.Text = "ASM";
@@ -228,35 +257,33 @@ namespace Prewitt
             this.ThreadsTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.ThreadsTrackBar.LargeChange = 1;
             this.ThreadsTrackBar.Location = new System.Drawing.Point(0, 0);
-            this.ThreadsTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.ThreadsTrackBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ThreadsTrackBar.Maximum = 64;
             this.ThreadsTrackBar.Minimum = 8;
             this.ThreadsTrackBar.Name = "ThreadsTrackBar";
-            this.ThreadsTrackBar.Size = new System.Drawing.Size(597, 69);
+            this.ThreadsTrackBar.Size = new System.Drawing.Size(452, 45);
             this.ThreadsTrackBar.TabIndex = 0;
             this.ThreadsTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.ThreadsTrackBar.Value = 8;
             this.ThreadsTrackBar.ValueChanged += new System.EventHandler(this.ThreadsTrackBar_ValueChanged);
             // 
-            // label3
+            // NThreadsLabel
             // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(0, 31);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 97);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "8";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.NThreadsLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.NThreadsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NThreadsLabel.Location = new System.Drawing.Point(0, 19);
+            this.NThreadsLabel.Name = "NThreadsLabel";
+            this.NThreadsLabel.Size = new System.Drawing.Size(119, 65);
+            this.NThreadsLabel.TabIndex = 1;
+            this.NThreadsLabel.Text = "8";
+            this.NThreadsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 31);
+            this.label2.Size = new System.Drawing.Size(119, 19);
             this.label2.TabIndex = 0;
             this.label2.Text = "Selected Threads:";
             // 
@@ -265,9 +292,9 @@ namespace Prewitt
             this.PutOnTheFilterButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PutOnTheFilterButton.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.PutOnTheFilterButton.Location = new System.Drawing.Point(0, 0);
-            this.PutOnTheFilterButton.Margin = new System.Windows.Forms.Padding(4);
+            this.PutOnTheFilterButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PutOnTheFilterButton.Name = "PutOnTheFilterButton";
-            this.PutOnTheFilterButton.Size = new System.Drawing.Size(759, 58);
+            this.PutOnTheFilterButton.Size = new System.Drawing.Size(575, 66);
             this.PutOnTheFilterButton.TabIndex = 0;
             this.PutOnTheFilterButton.Text = "Put on the filter";
             this.PutOnTheFilterButton.UseVisualStyleBackColor = true;
@@ -279,7 +306,7 @@ namespace Prewitt
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -289,18 +316,17 @@ namespace Prewitt
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.OutputImage);
-            this.splitContainer1.Size = new System.Drawing.Size(1459, 635);
-            this.splitContainer1.SplitterDistance = 697;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1104, 497);
+            this.splitContainer1.SplitterDistance = 525;
             this.splitContainer1.TabIndex = 1;
             // 
             // InputImage
             // 
             this.InputImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InputImage.Location = new System.Drawing.Point(0, 0);
-            this.InputImage.Margin = new System.Windows.Forms.Padding(4);
+            this.InputImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.InputImage.Name = "InputImage";
-            this.InputImage.Size = new System.Drawing.Size(697, 635);
+            this.InputImage.Size = new System.Drawing.Size(525, 497);
             this.InputImage.TabIndex = 0;
             this.InputImage.TabStop = false;
             // 
@@ -308,52 +334,24 @@ namespace Prewitt
             // 
             this.OutputImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OutputImage.Location = new System.Drawing.Point(0, 0);
-            this.OutputImage.Margin = new System.Windows.Forms.Padding(4);
+            this.OutputImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutputImage.Name = "OutputImage";
-            this.OutputImage.Size = new System.Drawing.Size(757, 635);
+            this.OutputImage.Size = new System.Drawing.Size(575, 497);
             this.OutputImage.TabIndex = 0;
             this.OutputImage.TabStop = false;
             // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.ElapsedTimeLabel);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(269, 69);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(328, 59);
-            this.panel3.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(324, 25);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Elapsed Time";
-            // 
-            // ElapsedTimeLabel
-            // 
-            this.ElapsedTimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ElapsedTimeLabel.Location = new System.Drawing.Point(0, 25);
-            this.ElapsedTimeLabel.Name = "ElapsedTimeLabel";
-            this.ElapsedTimeLabel.Size = new System.Drawing.Size(324, 30);
-            this.ElapsedTimeLabel.TabIndex = 1;
-            this.ElapsedTimeLabel.Text = "0";
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1459, 826);
+            this.ClientSize = new System.Drawing.Size(1104, 650);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Prewitt Filter";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
@@ -369,6 +367,7 @@ namespace Prewitt
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ThreadsTrackBar)).EndInit();
@@ -378,7 +377,6 @@ namespace Prewitt
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InputImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputImage)).EndInit();
-            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -396,7 +394,7 @@ namespace Prewitt
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.TrackBar ThreadsTrackBar;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label NThreadsLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button PutOnTheFilterButton;
         private System.Windows.Forms.RadioButton CPPradioButton;

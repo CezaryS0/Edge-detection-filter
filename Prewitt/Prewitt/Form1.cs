@@ -91,15 +91,18 @@ namespace Prewitt
                 MainThread.IsBackground = true;
                 MainThread.Start();
             }
-            //filter1 = new Filter(model);
-           // Bitmap img = model.ReturnLoadedImage();
-           // OutputImage.Image = filter1.PutOnTheFilterCSharp(img);
         }
 
         private void ThreadsTrackBar_ValueChanged(object sender, EventArgs e)
         {
             var trackbar = sender as TrackBar;
             NThreads = trackbar.Value;
+            NThreadsLabel.Text = trackbar.Value.ToString();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
