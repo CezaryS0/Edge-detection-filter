@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Diagnostics;
 namespace Prewitt
 {
     public partial class Form1 : Form
@@ -30,16 +31,32 @@ namespace Prewitt
             }
             );
         }
+        public void SetElapsedTime(long t)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                ElapsedTimeLabel.Text = t.ToString() + " ms";
+            }
+           );
+        }
         public void Thread_T()
         {
             Filter filter = new Filter(model);
-            if(ASMradioButton.Checked==true)
+            var stopwatch = new Stopwatch();
+          
+            if (ASMradioButton.Checked==true)
             {
+                stopwatch.Start();
                 SetOutputImage(filter.PutOnTheFilterASM());
+                stopwatch.Stop();
+                SetElapsedTime(stopwatch.ElapsedMilliseconds);
             }
             else if(CPPradioButton.Checked==true)
             {
-                SetOutputImage(filter.PutOnTheFilterCPP());
+                stopwatch.Start();
+                SetOutputImage(filter.PutOnTheFilterCSharp(model.ReturnLoadedImage()));
+                stopwatch.Stop();
+                SetElapsedTime(stopwatch.ElapsedMilliseconds);
             }
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -74,9 +91,9 @@ namespace Prewitt
                 MainThread.IsBackground = true;
                 MainThread.Start();
             }
-            filter1 = new Filter(model);
-            Bitmap img = model.ReturnLoadedImage();
-            OutputImage.Image = filter1.PutOnTheFilterCSharp(img);
+            //filter1 = new Filter(model);
+           // Bitmap img = model.ReturnLoadedImage();
+           // OutputImage.Image = filter1.PutOnTheFilterCSharp(img);
         }
 
         private void ThreadsTrackBar_ValueChanged(object sender, EventArgs e)

@@ -17,13 +17,9 @@ namespace Prewitt
         {
             return null;
         }
-        public Bitmap PutOnTheFilterCPP()
-        {
-            return null;
-        }
         public Bitmap PutOnTheFilterCSharp(Bitmap bitmap)
         {
-            return CSharpPrewitt.PrewittFilter(bitmap);
+            return CSharpPrewitt.PrewittFilter(bitmap, this.model);
         }
     }
 }

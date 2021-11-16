@@ -20,6 +20,10 @@ namespace Prewitt
         {
             NThreads = n;
         }
+        public int GetNnumberOfThreads()
+        {
+            return NThreads;
+        }
         public Bitmap ReturnLoadedImage()
         {
             return LoadedImage;
