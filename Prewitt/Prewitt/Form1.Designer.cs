@@ -80,7 +80,7 @@ namespace Prewitt
             this.panel1.Location = new System.Drawing.Point(0, 497);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1104, 153);
+            this.panel1.Size = new System.Drawing.Size(1011, 153);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -102,8 +102,8 @@ namespace Prewitt
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1104, 153);
-            this.splitContainer2.SplitterDistance = 525;
+            this.splitContainer2.Size = new System.Drawing.Size(1011, 153);
+            this.splitContainer2.SplitterDistance = 479;
             this.splitContainer2.TabIndex = 0;
             // 
             // SelectPictureButton
@@ -113,7 +113,7 @@ namespace Prewitt
             this.SelectPictureButton.Location = new System.Drawing.Point(0, 38);
             this.SelectPictureButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SelectPictureButton.Name = "SelectPictureButton";
-            this.SelectPictureButton.Size = new System.Drawing.Size(525, 115);
+            this.SelectPictureButton.Size = new System.Drawing.Size(479, 115);
             this.SelectPictureButton.TabIndex = 2;
             this.SelectPictureButton.Text = "Select Picture";
             this.SelectPictureButton.UseVisualStyleBackColor = true;
@@ -126,7 +126,7 @@ namespace Prewitt
             this.PathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PathTextBox.Name = "PathTextBox";
             this.PathTextBox.ReadOnly = true;
-            this.PathTextBox.Size = new System.Drawing.Size(525, 23);
+            this.PathTextBox.Size = new System.Drawing.Size(479, 23);
             this.PathTextBox.TabIndex = 1;
             // 
             // label1
@@ -134,7 +134,7 @@ namespace Prewitt
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(525, 15);
+            this.label1.Size = new System.Drawing.Size(479, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Selected Path";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -143,7 +143,6 @@ namespace Prewitt
             // 
             this.splitContainer3.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
             this.splitContainer3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer3.Name = "splitContainer3";
@@ -156,8 +155,8 @@ namespace Prewitt
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.PutOnTheFilterButton);
-            this.splitContainer3.Size = new System.Drawing.Size(575, 153);
-            this.splitContainer3.SplitterDistance = 84;
+            this.splitContainer3.Size = new System.Drawing.Size(528, 153);
+            this.splitContainer3.SplitterDistance = 88;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -180,8 +179,8 @@ namespace Prewitt
             // 
             this.splitContainer4.Panel2.Controls.Add(this.NThreadsLabel);
             this.splitContainer4.Panel2.Controls.Add(this.label2);
-            this.splitContainer4.Size = new System.Drawing.Size(575, 84);
-            this.splitContainer4.SplitterDistance = 452;
+            this.splitContainer4.Size = new System.Drawing.Size(528, 88);
+            this.splitContainer4.SplitterDistance = 414;
             this.splitContainer4.TabIndex = 0;
             // 
             // panel3
@@ -193,7 +192,7 @@ namespace Prewitt
             this.panel3.Location = new System.Drawing.Point(190, 45);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(262, 39);
+            this.panel3.Size = new System.Drawing.Size(224, 43);
             this.panel3.TabIndex = 4;
             // 
             // ElapsedTimeLabel
@@ -202,7 +201,7 @@ namespace Prewitt
             this.ElapsedTimeLabel.Location = new System.Drawing.Point(0, 15);
             this.ElapsedTimeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ElapsedTimeLabel.Name = "ElapsedTimeLabel";
-            this.ElapsedTimeLabel.Size = new System.Drawing.Size(258, 20);
+            this.ElapsedTimeLabel.Size = new System.Drawing.Size(220, 24);
             this.ElapsedTimeLabel.TabIndex = 1;
             this.ElapsedTimeLabel.Text = "0";
             // 
@@ -212,7 +211,7 @@ namespace Prewitt
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(258, 15);
+            this.label4.Size = new System.Drawing.Size(220, 15);
             this.label4.TabIndex = 0;
             this.label4.Text = "Elapsed Time";
             // 
@@ -225,7 +224,7 @@ namespace Prewitt
             this.panel2.Location = new System.Drawing.Point(0, 45);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(190, 39);
+            this.panel2.Size = new System.Drawing.Size(190, 43);
             this.panel2.TabIndex = 3;
             // 
             // CPPradioButton
@@ -261,7 +260,7 @@ namespace Prewitt
             this.ThreadsTrackBar.Maximum = 64;
             this.ThreadsTrackBar.Minimum = 8;
             this.ThreadsTrackBar.Name = "ThreadsTrackBar";
-            this.ThreadsTrackBar.Size = new System.Drawing.Size(452, 45);
+            this.ThreadsTrackBar.Size = new System.Drawing.Size(414, 45);
             this.ThreadsTrackBar.TabIndex = 0;
             this.ThreadsTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.ThreadsTrackBar.Value = 8;
@@ -273,7 +272,7 @@ namespace Prewitt
             this.NThreadsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NThreadsLabel.Location = new System.Drawing.Point(0, 19);
             this.NThreadsLabel.Name = "NThreadsLabel";
-            this.NThreadsLabel.Size = new System.Drawing.Size(119, 65);
+            this.NThreadsLabel.Size = new System.Drawing.Size(110, 69);
             this.NThreadsLabel.TabIndex = 1;
             this.NThreadsLabel.Text = "8";
             this.NThreadsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -283,7 +282,7 @@ namespace Prewitt
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 19);
+            this.label2.Size = new System.Drawing.Size(110, 19);
             this.label2.TabIndex = 0;
             this.label2.Text = "Selected Threads:";
             // 
@@ -294,7 +293,7 @@ namespace Prewitt
             this.PutOnTheFilterButton.Location = new System.Drawing.Point(0, 0);
             this.PutOnTheFilterButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PutOnTheFilterButton.Name = "PutOnTheFilterButton";
-            this.PutOnTheFilterButton.Size = new System.Drawing.Size(575, 66);
+            this.PutOnTheFilterButton.Size = new System.Drawing.Size(528, 62);
             this.PutOnTheFilterButton.TabIndex = 0;
             this.PutOnTheFilterButton.Text = "Put on the filter";
             this.PutOnTheFilterButton.UseVisualStyleBackColor = true;
@@ -316,8 +315,8 @@ namespace Prewitt
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.OutputImage);
-            this.splitContainer1.Size = new System.Drawing.Size(1104, 497);
-            this.splitContainer1.SplitterDistance = 525;
+            this.splitContainer1.Size = new System.Drawing.Size(1011, 497);
+            this.splitContainer1.SplitterDistance = 479;
             this.splitContainer1.TabIndex = 1;
             // 
             // InputImage
@@ -326,7 +325,8 @@ namespace Prewitt
             this.InputImage.Location = new System.Drawing.Point(0, 0);
             this.InputImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.InputImage.Name = "InputImage";
-            this.InputImage.Size = new System.Drawing.Size(525, 497);
+            this.InputImage.Padding = new System.Windows.Forms.Padding(5);
+            this.InputImage.Size = new System.Drawing.Size(479, 497);
             this.InputImage.TabIndex = 0;
             this.InputImage.TabStop = false;
             // 
@@ -336,7 +336,8 @@ namespace Prewitt
             this.OutputImage.Location = new System.Drawing.Point(0, 0);
             this.OutputImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutputImage.Name = "OutputImage";
-            this.OutputImage.Size = new System.Drawing.Size(575, 497);
+            this.OutputImage.Padding = new System.Windows.Forms.Padding(5);
+            this.OutputImage.Size = new System.Drawing.Size(528, 497);
             this.OutputImage.TabIndex = 0;
             this.OutputImage.TabStop = false;
             // 
@@ -344,7 +345,7 @@ namespace Prewitt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1104, 650);
+            this.ClientSize = new System.Drawing.Size(1011, 650);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

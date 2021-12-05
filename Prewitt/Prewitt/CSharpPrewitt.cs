@@ -9,10 +9,9 @@ using System.Runtime.InteropServices;
 using System.Threading;
 namespace Prewitt
 {
-    public static class Matrix
+    public class Matrix
     {
-        
-        public static double[,] Prewitt3x3Horizontal
+        public double[,] Prewitt3x3Horizontal
         {
             get
             {
@@ -23,7 +22,7 @@ namespace Prewitt
                 };
             }
         }
-        public static double[,] Prewitt3x3Vertical
+        public double[,] Prewitt3x3Vertical
         {
             get
             {
@@ -35,11 +34,36 @@ namespace Prewitt
             }
         }
     }
-    public static class CSharpPrewitt
+    public class CSharpPrewitt
     {
-        private static bool done;
-        static object Lock = new object();
-        private static void ApplyGrayScale(ref byte[]pixelBuffer)
+        Matrix matrix;
+        List<BitmapSegment> partsOfBitmap;
+        List<ManualResetEvent> manualResetEvents;
+        object Lock = new object();
+        public CSharpPrewitt()
+        {
+            partsOfBitmap = new List<BitmapSegment>();
+            manualResetEvents = new List<ManualResetEvent>();
+            matrix = new Matrix();
+        }
+        public void DivideBitmap(Bitmap bitmap, int size)
+        {
+            int PartsAmount = bitmap.Height / size;
+            int sum = 0;
+            for (int i = 0; i < PartsAmount; i++)
+            {
+                var bmp = bitmap.Clone(new Rectangle(0, i * size, bitmap.Width, size), bitmap.PixelFormat);
+                partsOfBitmap.Add(new BitmapSegment(bmp, new Point(0, i * size)));
+                sum += size;
+            }
+            sum = bitmap.Height - sum;
+            if (sum > 0)
+            {
+                var bmp = bitmap.Clone(new Rectangle(0, PartsAmount * size, bitmap.Width, sum), bitmap.PixelFormat);
+                partsOfBitmap.Add(new BitmapSegment(bmp,new Point(0,PartsAmount*size)));
+            }
+        }
+        private void ApplyGrayScale(ref byte[]pixelBuffer)
         {
             float rgb = 0;
             for (int k = 0; k < pixelBuffer.Length; k += 4)
@@ -54,7 +78,7 @@ namespace Prewitt
                 pixelBuffer[k + 3] = 255;
             }
         }
-        private static void MakeCalculations(ref Bitmap sourceBitmap,ref BitmapData sourceData,ref byte[]pixelBuffer,ref byte[] resultBuffer)
+        private void MakeCalculations(ref Bitmap sourceBitmap,ref BitmapData sourceData,ref byte[]pixelBuffer,ref byte[] resultBuffer)
         {
             double blueX = 0.0;
             double greenX = 0.0;
@@ -86,12 +110,12 @@ namespace Prewitt
                         for (int filterX = -filterOffset; filterX <= filterOffset; filterX++)
                         {
                             calcOffset = byteOffset + (filterX * 4) + (filterY * sourceData.Stride);
-                            blueX += (double)(pixelBuffer[calcOffset]) * Matrix.Prewitt3x3Horizontal[filterY + filterOffset, filterX + filterOffset];
-                            greenX += (double)(pixelBuffer[calcOffset + 1]) * Matrix.Prewitt3x3Horizontal[filterY + filterOffset, filterX + filterOffset];
-                            redX += (double)(pixelBuffer[calcOffset + 2]) * Matrix.Prewitt3x3Horizontal[filterY + filterOffset, filterX + filterOffset];
-                            blueY += (double)(pixelBuffer[calcOffset]) * Matrix.Prewitt3x3Vertical[filterY + filterOffset, filterX + filterOffset];
-                            greenY += (double)(pixelBuffer[calcOffset + 1]) * Matrix.Prewitt3x3Vertical[filterY + filterOffset, filterX + filterOffset];
-                            redY += (double)(pixelBuffer[calcOffset + 2]) * Matrix.Prewitt3x3Vertical[filterY + filterOffset, filterX + filterOffset];
+                            blueX += (double)(pixelBuffer[calcOffset]) * matrix.Prewitt3x3Horizontal[filterY + filterOffset, filterX + filterOffset];
+                            greenX += (double)(pixelBuffer[calcOffset + 1]) * matrix.Prewitt3x3Horizontal[filterY + filterOffset, filterX + filterOffset];
+                            redX += (double)(pixelBuffer[calcOffset + 2]) * matrix.Prewitt3x3Horizontal[filterY + filterOffset, filterX + filterOffset];
+                            blueY += (double)(pixelBuffer[calcOffset]) * matrix.Prewitt3x3Vertical[filterY + filterOffset, filterX + filterOffset];
+                            greenY += (double)(pixelBuffer[calcOffset + 1]) * matrix.Prewitt3x3Vertical[filterY + filterOffset, filterX + filterOffset];
+                            redY += (double)(pixelBuffer[calcOffset + 2]) * matrix.Prewitt3x3Vertical[filterY + filterOffset, filterX + filterOffset];
                         }
                     }
                     blueTotal = Math.Sqrt((blueX * blueX) + (blueY * blueY));
@@ -119,12 +143,17 @@ namespace Prewitt
                     resultBuffer[byteOffset + 3] = 255;
                 }
             }
-            lock (Lock)
+        }
+        public static Bitmap cropAtRect(Bitmap b, Rectangle r)
+        {
+            Bitmap nb = new Bitmap(r.Width, r.Height);
+            using (Graphics g = Graphics.FromImage(nb))
             {
-                done = true;
+                g.DrawImage(b, -r.X, -r.Y);
+                return nb;
             }
         }
-        public static Bitmap ConvolutionFilter(Bitmap sourceBitmap,int NThreads,double[,] xFilterMatrix,double[,] yFilterMatrix,bool grayscale = false)
+        public Bitmap ConvolutionFilter(Bitmap sourceBitmap,double[,] xFilterMatrix,double[,] yFilterMatrix,bool grayscale = false)
         {
             BitmapData sourceData =sourceBitmap.LockBits(new Rectangle(0, 0,sourceBitmap.Width, sourceBitmap.Height),ImageLockMode.ReadOnly,PixelFormat.Format32bppArgb);
             byte[] pixelBuffer = new byte[sourceData.Stride *sourceData.Height];
@@ -139,29 +168,49 @@ namespace Prewitt
             {
                 ApplyGrayScale(ref pixelBuffer);
             }
-            int minIOC,maxIOC;
-            ThreadPool.GetMinThreads(out _, out minIOC);
-            ThreadPool.SetMinThreads(NThreads, minIOC);
-            ThreadPool.GetMaxThreads(out _, out maxIOC);
-            ThreadPool.SetMaxThreads(NThreads, maxIOC);
-            ThreadPool.QueueUserWorkItem(state => MakeCalculations(ref sourceBitmap, ref sourceData, ref pixelBuffer, ref resultBuffer));
-            while (done==false);
-            Bitmap resultBitmap = new Bitmap(sourceBitmap.Width,sourceBitmap.Height);
-
+            MakeCalculations(ref sourceBitmap, ref sourceData, ref pixelBuffer, ref resultBuffer);
+            Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
             BitmapData resultData =resultBitmap.LockBits(new Rectangle(0, 0,resultBitmap.Width, resultBitmap.Height),ImageLockMode.WriteOnly,PixelFormat.Format32bppArgb);
             Marshal.Copy(resultBuffer, 0, resultData.Scan0,resultBuffer.Length);
             resultBitmap.UnlockBits(resultData);
 
             return resultBitmap;
         }
-        public static Bitmap PrewittFilter(Bitmap sourceBitmap,Model m, bool grayscale = true)
+        public Bitmap PrewittFilter(Bitmap sourceBitmap, Model m, bool grayscale = true)
         {
-            done= false;
-            Bitmap resultBitmap = ConvolutionFilter(sourceBitmap,m.GetNnumberOfThreads(),Matrix.Prewitt3x3Horizontal,Matrix.Prewitt3x3Vertical, grayscale);
-
-
-            return resultBitmap;
+            DivideBitmap(sourceBitmap,128);
+            Bitmap OutputBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
+            using (Graphics g = Graphics.FromImage(OutputBitmap))
+            {
+   
+                int offset = 0;
+                int i = 0;
+                foreach (var bmp in partsOfBitmap)
+                {
+                    var resetEvent = new ManualResetEvent(false);
+                    ThreadPool.QueueUserWorkItem(arg =>
+                    {
+                        var res = ConvolutionFilter(bmp.bitmap, matrix.Prewitt3x3Horizontal, matrix.Prewitt3x3Vertical, grayscale);
+                       
+                        lock (Lock)
+                        {
+                          
+                            
+                            res.Save("test" +i.ToString()+".bmp");
+                            i++;
+                        }
+                        resetEvent.Set();
+                    });
+                    manualResetEvents.Add(resetEvent);
+                }
+                foreach(var e in manualResetEvents)
+                {
+                    e.WaitOne();
+                }
+            }
+            return OutputBitmap;
         }
+
     }
   
 }

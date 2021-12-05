@@ -9,6 +9,7 @@ namespace Prewitt
     public class Filter
     {
         Model model;
+        CSharpPrewitt sharpPrewitt = new CSharpPrewitt();
         public Filter(Model m)
         {
             this.model = m;
@@ -19,7 +20,7 @@ namespace Prewitt
         }
         public Bitmap PutOnTheFilterCSharp(Bitmap bitmap)
         {
-            return CSharpPrewitt.PrewittFilter(bitmap, this.model);
+            return sharpPrewitt.PrewittFilter(bitmap, this.model);
         }
     }
 }
