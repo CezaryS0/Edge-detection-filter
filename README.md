@@ -8,4 +8,4 @@ Edge detection algorithm using Prewitt's filter written in Windows Forms C#.
 
 
 # GUI of app
-![Prewitt-Filter](https://user-images.githubusercontent.com/56163226/145205367-b1473598-f822-4776-a6c5-0c7af5e8f49d.png)
+![Prewitt-Filter](https://user-images.githubusercontent.com/56163226/145205693-954b51ff-b9fa-4565-9f8d-b956529d2e3d.png)
