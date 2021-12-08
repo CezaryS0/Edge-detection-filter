@@ -1,2 +1,4 @@
 # Filtr-Pretwitta
-Algorytm do wykrywania krawędzi obrazu Algorytmem Prettwita
+Edge detection algorithm using Prewitt's filter written in Windows Forms C#.
+
+(SIMD x64 will be added in the future.)
