@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 namespace Prewitt
 {
     public class Model
     {
-        private Bitmap LoadedImage;
+        private readonly Bitmap LoadedImage;
         public string path;
         private int NThreads;
         public Model(string path)

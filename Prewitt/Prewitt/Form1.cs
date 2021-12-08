@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Diagnostics;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 namespace Prewitt
 {
     public partial class Form1 : Form
     {
-        Model model;
-        Thread MainThread;
-        int NThreads=8;
-        Filter filter1;
+        private Model model;
+        private Thread MainThread;
+        private int NThreads = 8;
+        private readonly Filter filter1;
         public Form1()
         {
             InitializeComponent();
@@ -43,15 +36,15 @@ namespace Prewitt
         {
             Filter filter = new Filter(model);
             var stopwatch = new Stopwatch();
-          
-            if (ASMradioButton.Checked==true)
+
+            if (ASMradioButton.Checked == true)
             {
                 stopwatch.Start();
                 SetOutputImage(filter.PutOnTheFilterASM());
                 stopwatch.Stop();
                 SetElapsedTime(stopwatch.ElapsedMilliseconds);
             }
-            else if(CPPradioButton.Checked==true)
+            else if (CPPradioButton.Checked == true)
             {
                 stopwatch.Start();
                 SetOutputImage(filter.PutOnTheFilterCSharp(model.ReturnLoadedImage()));
@@ -69,7 +62,7 @@ namespace Prewitt
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-               // openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                // openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 
@@ -87,8 +80,10 @@ namespace Prewitt
             if (model != null)
             {
                 model.SetNumberOfThreads(NThreads);
-                MainThread = new Thread(Thread_T);
-                MainThread.IsBackground = true;
+                MainThread = new Thread(Thread_T)
+                {
+                    IsBackground = true
+                };
                 MainThread.Start();
             }
         }

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 namespace Prewitt
 {
     public class Filter
     {
-        Model model;
-        CSharpPrewitt sharpPrewitt = new CSharpPrewitt();
+        private readonly Model model;
+        private readonly CSharpPrewitt sharpPrewitt = new CSharpPrewitt();
         public Filter(Model m)
         {
             this.model = m;
