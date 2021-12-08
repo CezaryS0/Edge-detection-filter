@@ -22,14 +22,12 @@ namespace Prewitt
     public class CSharpPrewitt
     {
         private readonly Matrix matrix;
-        private readonly List<BitmapSegment> partsOfBitmap;
         private readonly List<ManualResetEvent> manualResetEvents;
         private readonly object Lock = new object();
         private byte[] pixelBuffer;
         private byte[] resultBuffer;
         public CSharpPrewitt()
         {
-            partsOfBitmap = new List<BitmapSegment>();
             manualResetEvents = new List<ManualResetEvent>();
             matrix = new Matrix();
         }
@@ -109,7 +107,7 @@ namespace Prewitt
                 e.WaitOne();
             }
         }
-        public Bitmap ConvolutionFilter(Bitmap sourceBitmap, double[,] xFilterMatrix, double[,] yFilterMatrix, bool grayscale = false)
+        private Bitmap ConvolutionFilter(Bitmap sourceBitmap, bool grayscale = false)
         {
             BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
             pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
@@ -129,7 +127,6 @@ namespace Prewitt
             BitmapData resultData = resultBitmap.LockBits(new Rectangle(0, 0, resultBitmap.Width, resultBitmap.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
             Marshal.Copy(resultBuffer, 0, resultData.Scan0, resultBuffer.Length);
             resultBitmap.UnlockBits(resultData);
-
             return resultBitmap;
         }
         public Bitmap PrewittFilter(Bitmap sourceBitmap, Model m, bool grayscale = false)
@@ -141,7 +138,7 @@ namespace Prewitt
             {
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
-                var res = ConvolutionFilter(sourceBitmap, matrix.Prewitt3x3Horizontal, matrix.Prewitt3x3Vertical, grayscale);
+                var res = ConvolutionFilter(sourceBitmap, grayscale);
                 g.DrawImage(res, new Point(0, 0));
             }
             return OutputBitmap;

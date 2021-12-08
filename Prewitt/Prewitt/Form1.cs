@@ -10,7 +10,6 @@ namespace Prewitt
         private Model model;
         private Thread MainThread;
         private int NThreads = 8;
-        private readonly Filter filter1;
         public Form1()
         {
             InitializeComponent();
@@ -21,6 +20,7 @@ namespace Prewitt
             this.Invoke((MethodInvoker)delegate
             {
                 OutputImage.Image = image;
+                OutputImage.SizeMode = PictureBoxSizeMode.CenterImage;
             }
             );
         }
@@ -71,6 +71,7 @@ namespace Prewitt
                     model = new Model(openFileDialog.FileName);
                     PathTextBox.Text = openFileDialog.FileName;
                     InputImage.Image = model.ReturnLoadedImage();
+                    InputImage.SizeMode = PictureBoxSizeMode.CenterImage;
                 }
             }
         }

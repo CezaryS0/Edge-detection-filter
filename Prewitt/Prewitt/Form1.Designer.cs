@@ -321,6 +321,7 @@ namespace Prewitt
             // 
             // InputImage
             // 
+            this.InputImage.BackColor = System.Drawing.SystemColors.Window;
             this.InputImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InputImage.Location = new System.Drawing.Point(0, 0);
             this.InputImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -332,7 +333,7 @@ namespace Prewitt
             // 
             // OutputImage
             // 
-            this.OutputImage.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.OutputImage.BackColor = System.Drawing.SystemColors.Window;
             this.OutputImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OutputImage.Location = new System.Drawing.Point(0, 0);
             this.OutputImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
