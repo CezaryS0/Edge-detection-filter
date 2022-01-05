@@ -50,9 +50,6 @@ namespace Prewitt
         private void ThreadFunction(int byteOffset, int stride, bool useASM = false)
         {
             double[] RGB = new double[6];
-            // double blueX = 0, greenX = 0, redX = 0;
-            // double blueY = 0, greenY = 0, redY = 0;
-            // int byteOffset = offsetY * stride + offsetX * 4;
             if (useASM == true)
             {
                 ASMPrewitt.ASMFilter(ref pixelBuffer, ref RGB, byteOffset, stride);

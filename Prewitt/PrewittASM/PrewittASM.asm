@@ -1,9 +1,9 @@
 .data
 Prewitt3x3Horizontal DQ 1,  0,  -1, 1,  0,  -1, 1,  0,  -1
 
-Prewitt3x3Vertical	 WORD 1,  1,  1
-					 WORD 0,  0,  0
-					 WORD -1, -1, -1
+Prewitt3x3Vertical	 DQ 1,  1,  1
+					 DQ 0,  0,  0
+					 DQ -1, -1, -1
 
 .code
 ASMPrewittDLL proc
@@ -60,16 +60,15 @@ forloop1:
 				mov al,byte ptr[rdx+rbx]
 				CVTSI2SD xmm1,rax ;pixelBuffer[calcOffset]
 				
-
 				MULSD xmm0,xmm1
 
 				movq r9,xmm4
-				mov rax,[r9+rcx*8]
-				movq rax,xmm2
+				lea rsi, [r9]
+				mov rax,qword ptr[rsi+rcx*8]
+				movq xmm2,rax
 				ADDSD xmm2,xmm0 ;RGB[i]
 				movq rax,xmm2
-				mov [r9+rcx*8],rax
-				ret
+				mov [rsi+rcx*8],rax
 				inc rcx
 				cmp rcx,3
 			jl inner_loopA
@@ -101,12 +100,13 @@ forloop1:
 				MULSD xmm0,xmm1
 
 				movq r9,xmm4
+				lea rsi,[r9]
 				add rcx,3
-				mov rax, [r9+rcx*8]
+				mov rax, qword ptr[rsi+rcx*8]
 				movq xmm2,rax
 				ADDSD xmm2,xmm0 ;RGB[i]
 				movq rax,xmm2
-				mov [r9+rcx*8],rax
+				mov [rsi+rcx*8],rax
 				sub rcx,3
 				inc rcx
 				cmp rcx,3
