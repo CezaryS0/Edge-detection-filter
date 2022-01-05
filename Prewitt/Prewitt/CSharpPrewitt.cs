@@ -100,7 +100,6 @@ namespace Prewitt
                     int byteOffset = offsetY * stride + offsetX * 4;
                     ThreadPool.QueueUserWorkItem(arg =>
                     {
-
                         ThreadFunction(byteOffset, stride, useASM);
                         resetEvent.Set();
                     });
