@@ -40,7 +40,7 @@ namespace Prewitt
             if (ASMradioButton.Checked == true)
             {
                 stopwatch.Start();
-                SetOutputImage(filter.PutOnTheFilterASM());
+                SetOutputImage(filter.PutOnTheFilterASM(model.ReturnLoadedImage()));
                 stopwatch.Stop();
                 SetElapsedTime(stopwatch.ElapsedMilliseconds);
             }

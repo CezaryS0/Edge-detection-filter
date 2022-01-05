@@ -9,9 +9,9 @@ namespace Prewitt
         {
             this.model = m;
         }
-        public Bitmap PutOnTheFilterASM()
+        public Bitmap PutOnTheFilterASM(Bitmap bitmap)
         {
-            return null;
+            return sharpPrewitt.PrewittFilter(bitmap, this.model, false, true);
         }
         public Bitmap PutOnTheFilterCSharp(Bitmap bitmap)
         {
