@@ -9,4 +9,5 @@ Algorithm can be run using C# or ASM x64 (using the SSE Instruction Set).
 
 
 # GUI of app
-![GUI](https://user-images.githubusercontent.com/56163226/149498988-3bd26dcc-480b-4d72-a80b-2bf6358996dc.png)
+
+![GUI](https://user-images.githubusercontent.com/56163226/149499138-ddf929f9-357e-4869-a148-e28e086b9653.png)
