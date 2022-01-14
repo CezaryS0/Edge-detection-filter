@@ -91,10 +91,6 @@ namespace Prewitt
             NThreadsLabel.Text = trackbar.Value.ToString();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
         private void GrayScaleCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             model.setGrayScale(GrayScaleCheckBox.Checked);
