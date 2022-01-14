@@ -10,11 +10,12 @@ namespace Prewitt
         private readonly Model model;
         private Thread MainThread;
         private int NThreads;
+        private bool imageLoaded = false;
         public MainWindow()
         {
             InitializeComponent();
             model = new Model();
-
+            this.CenterToScreen();
         }
         private void changeCursor(Control controls)
         {
@@ -60,20 +61,28 @@ namespace Prewitt
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
-
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    model.setPath(openFileDialog.FileName);
-                    PathTextBox.Text = openFileDialog.FileName;
-                    InputImage.Image = model.ReturnLoadedImage();
-                    InputImage.SizeMode = PictureBoxSizeMode.CenterImage;
+                    imageLoaded = false;
+                    try
+                    {
+                        model.setPath(openFileDialog.FileName);
+                        PathTextBox.Text = openFileDialog.FileName;
+                        InputImage.Image = model.ReturnLoadedImage();
+                        InputImage.SizeMode = PictureBoxSizeMode.CenterImage;
+                        imageLoaded = true;
+                    }
+                    catch
+                    {
+                        MessageBox.Show(this,"Could not open supplied image!","Error!");
+                    }
                 }
             }
         }
 
         private void PutOnTheFilterButton_Click(object sender, EventArgs e)
         {
-            if (model != null)
+            if (imageLoaded)
             {
                 model.SetNumberOfThreads(NThreads);
                 MainThread = new Thread(Thread_T)
