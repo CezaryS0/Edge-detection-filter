@@ -3,13 +3,35 @@ namespace Prewitt
 {
     public class Model
     {
-        private readonly Bitmap LoadedImage;
-        public string path;
+        private Bitmap LoadedImage;
+        private string path;
         private int NThreads;
-        public Model(string path)
+        private bool applyGrayScale;
+        private bool useASM;
+        public void setPath(string path)
         {
             this.path = path;
-            this.LoadedImage = new Bitmap(path);
+            LoadedImage = new Bitmap(path);
+        }
+        public string getPath()
+        {
+            return path;
+        }
+        public void setUseASM(bool b)
+        {
+            this.useASM = b;
+        }
+        public bool getUseASM()
+        {
+            return useASM;
+        }
+        public void setGrayScale(bool b)
+        {
+            this.applyGrayScale = b;
+        }
+        public bool getGrayScale()
+        {
+            return applyGrayScale;
         }
         public void SetNumberOfThreads(int n)
         {

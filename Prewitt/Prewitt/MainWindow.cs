@@ -5,17 +5,27 @@ using System.Threading;
 using System.Windows.Forms;
 namespace Prewitt
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         private Model model;
         private Thread MainThread;
-        private int NThreads = 8;
-        public Form1()
+        private int NThreads;
+        public MainWindow()
         {
             InitializeComponent();
-            this.MinimumSize = this.Size;
+            model=new Model();
+           
         }
-        public void SetOutputImage(Bitmap image)
+        private void changeCursor(Control controls)
+        {
+            foreach (Control c in controls.Controls)
+            {
+                changeCursor(c);
+                c.Cursor = Cursors.Default;
+                
+            }
+        }
+        private void SetOutputImage(Bitmap image)
         {
             this.Invoke((MethodInvoker)delegate
             {
@@ -24,37 +34,23 @@ namespace Prewitt
             }
             );
         }
-        public void SetElapsedTime(long t)
+        private void SetElapsedTime(long t)
         {
             this.Invoke((MethodInvoker)delegate
             {
                 ElapsedTimeLabel.Text = t.ToString() + " ms";
-            }
-           );
+            });
         }
         public void Thread_T()
         {
-            Filter filter = new Filter(model);
+            CSharpPrewitt cSharpPrewitt = new CSharpPrewitt();
             var stopwatch = new Stopwatch();
-
-            if (ASMradioButton.Checked == true)
-            {
-                stopwatch.Start();
-                SetOutputImage(filter.PutOnTheFilterASM(model.ReturnLoadedImage()));
-                stopwatch.Stop();
-                SetElapsedTime(stopwatch.ElapsedMilliseconds);
-            }
-            else if (CPPradioButton.Checked == true)
-            {
-                stopwatch.Start();
-                SetOutputImage(filter.PutOnTheFilterCSharp(model.ReturnLoadedImage()));
-                stopwatch.Stop();
-                SetElapsedTime(stopwatch.ElapsedMilliseconds);
-            }
-        }
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            
+            model.setUseASM(ASMradioButton.Checked);
+            stopwatch.Start();
+            SetOutputImage(cSharpPrewitt.PrewittFilter(model));
+            stopwatch.Stop();
+            SetElapsedTime(stopwatch.ElapsedMilliseconds);
         }
 
         private void SelectPictureButton_Click(object sender, EventArgs e)
@@ -62,13 +58,12 @@ namespace Prewitt
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-                // openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    model = new Model(openFileDialog.FileName);
+                    model.setPath(openFileDialog.FileName);
                     PathTextBox.Text = openFileDialog.FileName;
                     InputImage.Image = model.ReturnLoadedImage();
                     InputImage.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -99,6 +94,20 @@ namespace Prewitt
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        private void GrayScaleCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            model.setGrayScale(GrayScaleCheckBox.Checked);
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            this.MinimumSize = this.Size;
+            NThreads = Environment.ProcessorCount;
+            NThreadsLabel.Text = Environment.ProcessorCount.ToString();
+            ThreadsTrackBar.Value = Environment.ProcessorCount;
+            ThreadsTrackBar.Minimum = Environment.ProcessorCount;
+            changeCursor(this);
         }
     }
 }
