@@ -7,14 +7,14 @@ namespace Prewitt
 {
     public partial class MainWindow : Form
     {
-        private Model model;
+        private readonly Model model;
         private Thread MainThread;
         private int NThreads;
         public MainWindow()
         {
             InitializeComponent();
-            model=new Model();
-           
+            model = new Model();
+
         }
         private void changeCursor(Control controls)
         {
@@ -22,7 +22,7 @@ namespace Prewitt
             {
                 changeCursor(c);
                 c.Cursor = Cursors.Default;
-                
+
             }
         }
         private void SetOutputImage(Bitmap image)
@@ -43,12 +43,12 @@ namespace Prewitt
         }
         public void Thread_T()
         {
-            CSharpPrewitt cSharpPrewitt = new CSharpPrewitt();
+            Prewitt prewitt = new Prewitt();
             var stopwatch = new Stopwatch();
-            
+
             model.setUseASM(ASMradioButton.Checked);
             stopwatch.Start();
-            SetOutputImage(cSharpPrewitt.PrewittFilter(model));
+            SetOutputImage(prewitt.PrewittFilter(model));
             stopwatch.Stop();
             SetElapsedTime(stopwatch.ElapsedMilliseconds);
         }

@@ -6,29 +6,15 @@ using System.Runtime.InteropServices;
 using System.Threading;
 namespace Prewitt
 {
-    public class Matrix
+
+    public class Prewitt
     {
-        public double[,] Prewitt3x3Horizontal => new double[,]
-                { { 1,  0,  -1, },
-                  { 1,  0,  -1, },
-                  { 1,  0,  -1, },
-                };
-        public double[,] Prewitt3x3Vertical => new double[,]
-                { {  1,  1,  1, },
-                  {  0,  0,  0, },
-                  { -1, -1, -1, },
-                };
-    }
-    public class CSharpPrewitt
-    {
-        private readonly Matrix matrix;
         private readonly List<ManualResetEvent> manualResetEvents;
         private byte[] pixelBuffer;
         private byte[] resultBuffer;
-        public CSharpPrewitt()
+        public Prewitt()
         {
             manualResetEvents = new List<ManualResetEvent>();
-            matrix = new Matrix();
         }
 
         private void ApplyGrayScale(ref byte[] pixelBuffer)
@@ -51,26 +37,13 @@ namespace Prewitt
             double[] RGB = new double[6];
             if (useASM == true)
             {
-                ASMPrewitt.ASMFilter(ref pixelBuffer, ref RGB, byteOffset, stride);
-
+                PrewittDLLASM asMPrewitt = new PrewittDLLASM();
+                asMPrewitt.ASMFilter(ref pixelBuffer, ref RGB, byteOffset, stride);
             }
             else
             {
-                for (int filterY = -1; filterY <= 1; filterY++)
-                {
-                    for (int filterX = -1; filterX <= 1; filterX++)
-                    {
-                        int calcOffset = byteOffset + (filterX * 4) + (filterY * stride);
-                        for (int i = 0; i < 3; i++)
-                        {
-                            RGB[i] += pixelBuffer[calcOffset + i] * matrix.Prewitt3x3Horizontal[filterY + 1, filterX + 1];
-                        }
-                        for (int i = 0; i < 3; i++)
-                        {
-                            RGB[i + 3] += pixelBuffer[calcOffset + i] * matrix.Prewitt3x3Vertical[filterY + 1, filterX + 1];
-                        }
-                    }
-                }
+                PrewittDLLCSharp.PrewittDLLCSharp prewittDLLCSharp = new PrewittDLLCSharp.PrewittDLLCSharp();
+                prewittDLLCSharp.Calculate(ref pixelBuffer, RGB, byteOffset, stride);
             }
             double blueTotal = Math.Sqrt((RGB[0] * RGB[0]) + (RGB[3] * RGB[3]));
             double greenTotal = Math.Sqrt((RGB[1] * RGB[1]) + (RGB[4] * RGB[4]));
@@ -100,8 +73,8 @@ namespace Prewitt
                 {
                     for (int offsetX = 1; offsetX < width - 1; offsetX++)
                     {
-                        int byteOffset =offY * stride + offsetX * 4;
-                        ThreadFunction(byteOffset, stride, useASM);  
+                        int byteOffset = offY * stride + offsetX * 4;
+                        ThreadFunction(byteOffset, stride, useASM);
                     }
                     resetEvent.Set();
                 });
@@ -134,7 +107,7 @@ namespace Prewitt
             resultBitmap.UnlockBits(resultData);
             return resultBitmap;
         }
-        public Bitmap PrewittFilter( Model m)
+        public Bitmap PrewittFilter(Model m)
         {
             ThreadPool.GetMaxThreads(out _, out int maxIOC);
             ThreadPool.SetMaxThreads(m.GetNnumberOfThreads(), maxIOC);
@@ -144,7 +117,7 @@ namespace Prewitt
 
             using (Graphics g = Graphics.FromImage(OutputBitmap))
             {
-                var res = ConvolutionFilter(sourceBitmap, m.getGrayScale(),m.getUseASM());
+                var res = ConvolutionFilter(sourceBitmap, m.getGrayScale(), m.getUseASM());
                 g.DrawImage(res, new Point(0, 0));
             }
             return OutputBitmap;

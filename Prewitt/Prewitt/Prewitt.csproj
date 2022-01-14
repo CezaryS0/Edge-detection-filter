@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="PrewittDLLCSharp">
+      <HintPath>..\PrewittDLLCSharp\bin\x64\Debug\PrewittDLLCSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
