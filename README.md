@@ -9,4 +9,5 @@ Algorithm can be run using C# or ASM x64 (using the SSE Instruction Set).
 
 
 # GUI of app
-![Prewitt-Filter](https://user-images.githubusercontent.com/56163226/145205693-954b51ff-b9fa-4565-9f8d-b956529d2e3d.png)
+
+![GUI](https://user-images.githubusercontent.com/56163226/149499138-ddf929f9-357e-4869-a148-e28e086b9653.png)
