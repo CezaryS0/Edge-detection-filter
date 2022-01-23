@@ -31,7 +31,7 @@ namespace Prewitt
             this.Invoke((MethodInvoker)delegate
             {
                 OutputImage.Image = image;
-                OutputImage.SizeMode = PictureBoxSizeMode.CenterImage;
+                OutputImage.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             );
         }
@@ -69,7 +69,7 @@ namespace Prewitt
                         model.setPath(openFileDialog.FileName);
                         PathTextBox.Text = openFileDialog.FileName;
                         InputImage.Image = model.ReturnLoadedImage();
-                        InputImage.SizeMode = PictureBoxSizeMode.CenterImage;
+                        InputImage.SizeMode = PictureBoxSizeMode.StretchImage;
                         imageLoaded = true;
                     }
                     catch
@@ -110,8 +110,9 @@ namespace Prewitt
             this.MinimumSize = this.Size;
             NThreads = Environment.ProcessorCount;
             NThreadsLabel.Text = Environment.ProcessorCount.ToString();
-            ThreadsTrackBar.Value = Environment.ProcessorCount;
             ThreadsTrackBar.Minimum = Environment.ProcessorCount;
+            ThreadsTrackBar.Maximum = 64;
+            ThreadsTrackBar.Value = Environment.ProcessorCount;
             changeCursor(this);
         }
     }

@@ -43,7 +43,7 @@ namespace Prewitt
             else
             {
                 PrewittDLLCSharp.PrewittDLLCSharp prewittDLLCSharp = new PrewittDLLCSharp.PrewittDLLCSharp();
-                prewittDLLCSharp.Calculate(ref pixelBuffer, RGB, byteOffset, stride);
+                prewittDLLCSharp.Calculate(pixelBuffer, RGB, byteOffset, stride);
             }
             double blueTotal = Math.Sqrt((RGB[0] * RGB[0]) + (RGB[3] * RGB[3]));
             double greenTotal = Math.Sqrt((RGB[1] * RGB[1]) + (RGB[4] * RGB[4]));
@@ -63,7 +63,9 @@ namespace Prewitt
         }
         private void divideAndSetThreads(ref Bitmap sourceBitmap, ref BitmapData sourceData, bool useASM = false)
         {
-            for (int offsetY = 1; offsetY < sourceBitmap.Height - 1; offsetY++)
+            int size = sourceBitmap.Height - 1;
+            size -= size % 300;
+            for (int offsetY = 1; offsetY < size; offsetY+=300)
             {
                 int stride = sourceData.Stride;
                 var resetEvent = new ManualResetEvent(false);
@@ -71,10 +73,14 @@ namespace Prewitt
                 int offY = offsetY;
                 ThreadPool.QueueUserWorkItem(arg =>
                 {
-                    for (int offsetX = 1; offsetX < width - 1; offsetX++)
+                    int buf = offY;
+                    for (int i = buf; i < buf + 300; i++)
                     {
-                        int byteOffset = offY * stride + offsetX * 4;
-                        ThreadFunction(byteOffset, stride, useASM);
+                        for (int offsetX = 1; offsetX < width - 1; offsetX++)
+                        {
+                            int byteOffset = i * stride + offsetX * 4;
+                            ThreadFunction(byteOffset, stride, useASM);
+                        }
                     }
                     resetEvent.Set();
                 });
@@ -83,6 +89,15 @@ namespace Prewitt
             foreach (var e in manualResetEvents)
             {
                 e.WaitOne();
+            }
+            int modulo = (sourceBitmap.Height - 1) % 300;
+            for (int i = sourceBitmap.Height - 1-modulo; i < sourceBitmap.Height - 1; i++)
+            {
+                for (int offsetX = 1; offsetX < sourceBitmap.Width - 1; offsetX++)
+                {
+                    int byteOffset = i * sourceData.Stride + offsetX * 4;
+                    ThreadFunction(byteOffset, sourceData.Stride, useASM);
+                }
             }
         }
         private Bitmap ConvolutionFilter(Bitmap sourceBitmap, bool grayscale, bool useASM)
