@@ -15,7 +15,7 @@
     }
     public class PrewittDLLCSharp
     {
-        public void Calculate(byte[] pixelBuffer, double[] RGB, int byteOffset, int stride)
+        public void Calculate(ref byte[] pixelBuffer, double[] RGB, int byteOffset, int stride)
         {
             Matrix matrix = new Matrix();
             for (int filterY = -1; filterY <= 1; filterY++)
@@ -26,6 +26,9 @@
                     for (int i = 0; i < 3; i++)
                     {
                         RGB[i] += pixelBuffer[calcOffset + i] * matrix.Prewitt3x3Horizontal[filterY + 1, filterX + 1];
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
                         RGB[i + 3] += pixelBuffer[calcOffset + i] * matrix.Prewitt3x3Vertical[filterY + 1, filterX + 1];
                     }
                 }

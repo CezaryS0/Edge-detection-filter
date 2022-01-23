@@ -43,7 +43,7 @@ namespace Prewitt
             else
             {
                 PrewittDLLCSharp.PrewittDLLCSharp prewittDLLCSharp = new PrewittDLLCSharp.PrewittDLLCSharp();
-                prewittDLLCSharp.Calculate(pixelBuffer, RGB, byteOffset, stride);
+                prewittDLLCSharp.Calculate(ref pixelBuffer, RGB, byteOffset, stride);
             }
             double blueTotal = Math.Sqrt((RGB[0] * RGB[0]) + (RGB[3] * RGB[3]));
             double greenTotal = Math.Sqrt((RGB[1] * RGB[1]) + (RGB[4] * RGB[4]));
@@ -91,7 +91,7 @@ namespace Prewitt
                 e.WaitOne();
             }
             int modulo = (sourceBitmap.Height - 1) % 300;
-            for (int i = sourceBitmap.Height - 1-modulo; i < sourceBitmap.Height - 1; i++)
+            for (int i = sourceBitmap.Height-modulo; i < sourceBitmap.Height - 1; i++)
             {
                 for (int offsetX = 1; offsetX < sourceBitmap.Width - 1; offsetX++)
                 {
