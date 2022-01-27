@@ -65,7 +65,7 @@ namespace Prewitt
         {
             int size = sourceBitmap.Height - 1;
             size -= size % 300;
-            for (int offsetY = 1; offsetY < size; offsetY+=300)
+            for (int offsetY = 1; offsetY < size; offsetY += 300)
             {
                 int stride = sourceData.Stride;
                 var resetEvent = new ManualResetEvent(false);
@@ -91,7 +91,7 @@ namespace Prewitt
                 e.WaitOne();
             }
             int modulo = (sourceBitmap.Height - 1) % 300;
-            for (int i = sourceBitmap.Height-modulo; i < sourceBitmap.Height - 1; i++)
+            for (int i = sourceBitmap.Height - modulo; i < sourceBitmap.Height - 1; i++)
             {
                 for (int offsetX = 1; offsetX < sourceBitmap.Width - 1; offsetX++)
                 {

@@ -74,7 +74,7 @@ namespace Prewitt
                     }
                     catch
                     {
-                        MessageBox.Show(this,"Could not open supplied image!","Error!");
+                        MessageBox.Show(this, "Could not open supplied image!", "Error!");
                     }
                 }
             }
@@ -108,11 +108,16 @@ namespace Prewitt
         private void MainWindow_Load(object sender, EventArgs e)
         {
             this.MinimumSize = this.Size;
-            NThreads = Environment.ProcessorCount;
-            NThreadsLabel.Text = Environment.ProcessorCount.ToString();
-            ThreadsTrackBar.Minimum = Environment.ProcessorCount;
+            ThreadsTrackBar.Minimum = 1;
             ThreadsTrackBar.Maximum = 64;
-            ThreadsTrackBar.Value = Environment.ProcessorCount;
+            if (Environment.ProcessorCount > 64)
+            {
+                NThreads = 64;
+            }
+            else
+                NThreads = Environment.ProcessorCount;
+            NThreadsLabel.Text = NThreads.ToString();
+            ThreadsTrackBar.Value = NThreads;
             changeCursor(this);
         }
     }
