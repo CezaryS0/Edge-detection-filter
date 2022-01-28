@@ -107,6 +107,7 @@ namespace Prewitt
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            //Ustawienie wątków na ilość dostępnych wątków w procesore
             this.MinimumSize = this.Size;
             ThreadsTrackBar.Minimum = 1;
             ThreadsTrackBar.Maximum = 64;

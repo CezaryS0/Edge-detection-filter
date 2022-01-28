@@ -1,6 +1,9 @@
 ﻿using System.Drawing;
 namespace Prewitt
 {
+    /*
+     * Klasa przechowywująca wszelkie dane wykorzystywane w programie, pełni ona funkcje modelu.
+     */
     public class Model
     {
         private Bitmap LoadedImage;

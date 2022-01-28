@@ -16,7 +16,9 @@ namespace Prewitt
         {
             manualResetEvents = new List<ManualResetEvent>();
         }
-
+        /*
+         * Funkcja usuwająca kolory z obrazka, pozostawiając odcienie szarości. 
+         */
         private void ApplyGrayScale(ref byte[] pixelBuffer)
         {
             float rgb = 0;
@@ -35,7 +37,7 @@ namespace Prewitt
         private void ThreadFunction(int byteOffset, int stride, bool useASM = false)
         {
             double[] RGB = new double[6];
-            if (useASM == true)
+            if (useASM == true) //wybór czy algorytm ma się wykonać w C# czy w asemblerze
             {
                 PrewittDLLASM asMPrewitt = new PrewittDLLASM();
                 asMPrewitt.ASMFilter(ref pixelBuffer, ref RGB, byteOffset, stride);
@@ -45,7 +47,7 @@ namespace Prewitt
                 PrewittDLLCSharp.PrewittDLLCSharp prewittDLLCSharp = new PrewittDLLCSharp.PrewittDLLCSharp();
                 prewittDLLCSharp.Calculate(ref pixelBuffer, RGB, byteOffset, stride);
             }
-            double blueTotal = Math.Sqrt((RGB[0] * RGB[0]) + (RGB[3] * RGB[3]));
+            double blueTotal = Math.Sqrt((RGB[0] * RGB[0]) + (RGB[3] * RGB[3])); //obliczanie wielkości gradientu
             double greenTotal = Math.Sqrt((RGB[1] * RGB[1]) + (RGB[4] * RGB[4]));
             double redTotal = Math.Sqrt((RGB[2] * RGB[2]) + (RGB[5] * RGB[5]));
 
@@ -61,6 +63,9 @@ namespace Prewitt
             resultBuffer[byteOffset + 2] = (byte)(redTotal);
             resultBuffer[byteOffset + 3] = 255;
         }
+        /*
+         * Funkcja dzieląca obraz na części i przyedzielająca je wątkom
+         */
         private void divideAndSetThreads(ref Bitmap sourceBitmap, ref BitmapData sourceData, bool useASM = false)
         {
             int size = sourceBitmap.Height - 1;
@@ -71,6 +76,7 @@ namespace Prewitt
                 var resetEvent = new ManualResetEvent(false);
                 int width = sourceBitmap.Width;
                 int offY = offsetY;
+                //Przydzielanie kawałków obrazu wątkom i wywoływanie algorytmu 
                 ThreadPool.QueueUserWorkItem(arg =>
                 {
                     int buf = offY;
@@ -86,10 +92,11 @@ namespace Prewitt
                 });
                 manualResetEvents.Add(resetEvent);
             }
-            foreach (var e in manualResetEvents)
+            foreach (var e in manualResetEvents) //pętla czekająca aż wszytkie wątki skończą prace
             {
                 e.WaitOne();
             }
+            //kawałek kodu wykonujący algorytm dla pozostałej cześci obrazu
             int modulo = (sourceBitmap.Height - 1) % 300;
             for (int i = sourceBitmap.Height - modulo; i < sourceBitmap.Height - 1; i++)
             {

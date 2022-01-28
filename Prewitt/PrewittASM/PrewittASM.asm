@@ -4,7 +4,6 @@ Prewitt3x3Horizontal DQ 1,  0,  -1, 1,  0,  -1, 1,  0,  -1
 Prewitt3x3Vertical	 DQ 1,  1,  1
 					 DQ 0,  0,  0
 					 DQ -1, -1, -1
-
 .code
 ASMPrewittDLL proc
 	movq xmm3, rcx ;pixelBuffer
@@ -13,7 +12,7 @@ ASMPrewittDLL proc
 	movq xmm6, r9  ;stride 
 	mov r10,-1 ;r10 = filterY
 
-forloop1:
+forloop1: ;główne pętle odpowiadające za przejście po całej macierzy Prewitta
 
 	mov r11,-1 ;r11 = filterX
 	forloop2:
@@ -33,11 +32,11 @@ forloop1:
 		mov rax,r10
 		movq r9,xmm6
 		mul r9
-		add r8,rax ;r8 = calcOffset
-;---------------------------------------------------- RGB[0] += pixelBuffer[calcOffset] * matrix.Prewitt3x3Horizontal[filterY + 1, filterX + 1];
+		add r8,rax ;r8 = calcOffset - obliczenie przesunięcia w ciągu bajtów obrazu wejściowego 
+;--------------------------------------------------------------------------------
 
 		xor rcx,rcx
-			inner_loopA:
+			inner_loopA: ; pętla realizujaca linijke z pętli RGB[i] += pixelBuffer[calcOffset + i] * matrix.Prewitt3x3Horizontal[filterY + 1, filterX + 1]; 
 				mov r13,r11  ;filterX
 				add r13,1
 				mov r12,r10  ;filterY								
@@ -45,36 +44,37 @@ forloop1:
 				mov rax,r12
 				mov rbx,3
 				mul rbx
-				add rax,r13
+				add rax,r13	;algorytm w asm pobierający index odpowidniej wartości z macierzy
 				
-				lea rsi, [Prewitt3x3Horizontal]
+				lea rsi, [Prewitt3x3Horizontal]	;pobranie macierzy prewitt 3x3 
 				mov rsi, qword ptr[rsi+rax*8]
-				CVTSI2SD xmm0,rsi
+				CVTSI2SD xmm0,rsi	;instrukcja wektorowa konwertująca int na double
 				
 				movq rdx,xmm3 ;pixelBuffer
 				lea rdx,[rdx]
-				mov rbx,r8 ;calcOffset
+				mov rbx,r8 ; oblicznie przesunięcia ciągu bajtów w obrazie(calcOffset)
 				add rbx,rcx
 
 				xor rax,rax
 				mov al,byte ptr[rdx+rbx]
 				CVTSI2SD xmm1,rax ;pixelBuffer[calcOffset]
 				
-				MULSD xmm0,xmm1
+				MULSD xmm0,xmm1	;mnożenie wektorowe wpółrzędnych piksela przez odpowiednią wartość macierzy Prewitta
 
 				movq r9,xmm4
 				lea rsi, [r9]
 				mov rax,qword ptr[rsi+rcx*8]
 				movq xmm2,rax
-				ADDSD xmm2,xmm0 ;RGB[i]
+				ADDSD xmm2,xmm0 ;RGB[i] dodawanie obliczonych wartości do tablicy przechowującej wartości RGB
 				movq rax,xmm2
 				mov [rsi+rcx*8],rax
 				inc rcx
 				cmp rcx,3
 			jl inner_loopA
-;---------------------------------------------------
+;-----------------------------------------------------------------------------
 		xor rcx,rcx
-			inner_loopB:
+			inner_loopB:	;idetyczna pętla jak wyżej jedynie wpisująca do innego miejsca w tabeli i korzystająca z innej macierzy Prewitta
+							;RGB[i + 3] += pixelBuffer[calcOffset + i] * matrix.Prewitt3x3Vertical[filterY + 1, filterX + 1];
 				mov r13, r11 ;filterX
 				add r13,1
 				mov r12,r10  ;filterY								

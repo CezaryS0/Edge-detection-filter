@@ -15,6 +15,9 @@
     }
     public class PrewittDLLCSharp
     {
+        /*
+         * Funkcja mnożąca współrżedne RGB przez odpowiednią macierz. 
+         */
         public void Calculate(ref byte[] pixelBuffer, double[] RGB, int byteOffset, int stride)
         {
             Matrix matrix = new Matrix();
